@@ -1,4 +1,4 @@
-# SEEDlabs: Environment Variable and Set-UID Program Lab
+# SEEDlabs: Buffer Overflow Attack Lab
 
 #### Ozgur Ural
 #### Student ID: 2564455
