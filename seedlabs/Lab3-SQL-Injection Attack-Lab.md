@@ -5,11 +5,36 @@
 
 ## 3 Lab Tasks
 
-3.1 Task 1: Get Familiar with SQL Statements
+### 3.1 Task 1: Get Familiar with SQL Statements
 
+Console ：
+```sh
+# mysql -u root -pdees
+```
+```sh
+mysql> use Users;
+mysql> show tables;
+```
 
-## 3.2 Task 2: SQL Injection Attack on SELECT Statement
-### Task 2.1: SQL Injection Attack from webpage. 
+```sh
+mysql> use 1;
+Database changed
+```
+Indicates that you can add, delete, modify and query
+
+```sh
+mysql> show tables;
+```
+Shows that we have credential table.
+
+```c
+SELECT * FROM credential WHERE Name='Alice'
+```
+
+![11](./lab3-screenshots/11.png)
+
+### 3.2 Task 2: SQL Injection Attack on SELECT Statement
+#### Task 2.1: SQL Injection Attack from webpage. 
 In this task, we need to login into the admin page without knowing any employee’s credential. Figure 1 shows
 login to the SQL injection webpage.
 ![1](./lab3-screenshots/1.png)
