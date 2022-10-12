@@ -61,12 +61,12 @@ Figure 7
 ### Task 3.3: Modify other people’s password.
 
 ```sh
-[10/08/21]seed@VM:~$ echo -n PasswordOzgurural > password.txt
-[10/08/21]seed@VM:~$ cat password.txt
+[10/08/22]seed@VM:~$ echo -n PasswordOzgurural > password.txt
+[10/08/22]seed@VM:~$ cat password.txt
 PasswordOzgurural[10/08/21]seed@VM:~$ 
-[10/08/21]seed@VM:~$ sha1sum password.txt
+[10/08/22]seed@VM:~$ sha1sum password.txt
 2303012284ca4c22d18b3ac808bfcec68598a020  password.txt
-[10/08/21]seed@VM:~$ 
+[10/08/22]seed@VM:~$ 
 ```
 Then I enter:
 
