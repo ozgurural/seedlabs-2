@@ -7,6 +7,7 @@
 ## 2 Lab Environment Setup 
 My Lab enviroment was already set,I did not have to change host file etc. 
 ![1](./lab4-screenshots/1.png)
+
 Figure 1 
 
 ## 3 Lab Tasks
