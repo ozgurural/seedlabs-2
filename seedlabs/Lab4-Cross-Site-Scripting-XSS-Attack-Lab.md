@@ -21,6 +21,8 @@ I added the extension to Mozilla Firefox Browser and get familiar as expected.
 Figure 2
 
 ### 3.2 Task 1: Posting a Malicious Message to Display an Alert Window
+The execution result is shown in Figure 3 as can be seen below.  I log in with using the username and password provided in the lab description. After pasting the code, I click save. Once I am back on Samy’s profile page, I see that no alert box popped up. Then I login as Alice.
+
 
 ![3](./lab4-screenshots/3.png)
 
