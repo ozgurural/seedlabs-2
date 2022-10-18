@@ -16,11 +16,15 @@ Figure 1
 
 I added the extension to Mozilla Firefox Browser and get familiar as expected.
 
-![1](./lab4-screenshots/2.png)
+![2](./lab4-screenshots/2.png)
 
 Figure 2
 
 ### 3.2 Task 1: Posting a Malicious Message to Display an Alert Window
+
+![3](./lab4-screenshots/3.png)
+
+Figure 3
 
 ### 3.3 Task 2: Posting a Malicious Message to Display Cookies
 
