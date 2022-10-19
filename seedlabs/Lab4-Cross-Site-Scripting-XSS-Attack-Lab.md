@@ -1,8 +1,8 @@
 
 ## SEEDlabs: Cross Site Scripting(XSS) Attack Lab
 
-##### Ozgur Ural
-##### Student ID: 2564455
+#### Ozgur Ural
+#### Student ID: 2564455
 
 ## 2 Lab Environment Setup 
 ![1](./lab4-screenshots/1.png)
