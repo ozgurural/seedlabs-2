@@ -1,4 +1,4 @@
-# SEEDlabs: Race Condition Vulnerability Lab
+# SEEDlabs: Exam2 - BGP Exploration and Attack Lab
 
 #### Ozgur Ural
 #### Student ID: 2564455
