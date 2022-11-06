@@ -34,6 +34,18 @@ Here we choose to ping the host 10.156.0.72 from 10.155.0.72, and disconnect the
 
 Run the following command on the router to store the packets received by the router into a pcap file and transfer them to the virtual machine:
 
+```sh
+tcpdump -i any -w /tmp/pgp.pcap "tcp port 179"
+```
+
+Cut off a router connected to it (go offline or cut off all bgp connections), use wireshar to read the pcap file, find the UPDATE MESSAGE of BGP, and see the message that the route exits:
+
+![image](https://user-images.githubusercontent.com/4716254/200150617-99dff9df-edd0-42f9-9de7-7ad988b55373.png)
+
+Reconnecting can also capture routing update packets:
+
+![image](https://user-images.githubusercontent.com/4716254/200150635-3e735faa-d2f1-4f95-a0e1-48adde93dd42.png)
+
 
 #### 3.3 Task 1.c: Experimenting with Large Communities
 #### 3.4 Task 1.d: Configuring AS-180
