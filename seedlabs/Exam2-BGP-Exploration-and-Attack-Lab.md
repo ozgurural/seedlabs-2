@@ -46,9 +46,33 @@ Reconnecting can also capture routing update packets:
 
 ![image](https://user-images.githubusercontent.com/4716254/200150635-3e735faa-d2f1-4f95-a0e1-48adde93dd42.png)
 
-
 #### 3.3 Task 1.c: Experimenting with Large Communities
+
+First cut off the connection between AS-4 and AS-156, and then run the ping command on 10.156.0.71. It is found that 10.155.0.71 can be pinged, but 10.161.0.71 cannot be pinged. Although AS-156 is connected to the Internet through AS-155, due to the relationship between the two peers, AS-155 will not forward the data of AS-156 (whether it is forwarded depends on the relationship between the two).
+
+![image](https://user-images.githubusercontent.com/4716254/200150667-5dc13072-70f9-4c19-90d5-ddce54a10875.png)
+
+Modify the configuration file of the AS-155 router to realize that the data packets of the AS-156 are forwarded through the AS-155. There are two changes in total:
+
+After completing the modification with the following command, 10.156.0.71 can ping 10.161.0.71:
+
+```sh
+$ dockps | grep 155
+$ docker cp [docker id]:/etc/bird/bird.conf ./as155_bird.conf
+$ docker cp ./as155_bird.conf [docker id]:/etc/bird/bird.conf
+$ docker exec [docker id] birdc configure
+```
+
 #### 3.4 Task 1.d: Configuring AS-180
+
+The experiments in this section need to configure a series of router configuration information to enable AS-180 to access the Internet. Use import bird conf.sh and export bird conf.sh to import and export configuration files in the container.
+
+##### step 1 Connect AS-180 and AS-171
+Add the following to the configuration of AS-180 and AS-171 respectively:
+
+
+
+
 
 ### 4 Task 2: Transit Autonomous System
 #### 4.1 Task 2.a: Experimenting with IBGP
