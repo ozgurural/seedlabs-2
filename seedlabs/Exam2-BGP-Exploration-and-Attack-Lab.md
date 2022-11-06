@@ -14,6 +14,13 @@ $ docker-compose up
 
 ### 3 Task 1: Stub Autonomous System
 #### 3.1 Task 1.a: Understanding AS-155’s BGP Configuration
+
+Task 1.a.1:  Find the peer autonomous system of AS-155, find the BGP route of 10.155.0.254/24, and use cat /etc/bird/bird.conf to query its configuration information.
+
+![image](https://user-images.githubusercontent.com/4716254/200149098-ba95c405-c104-4bd7-a22c-dd4a2d569ab3.png)
+
+
+
 #### 3.2 Task 1.b: Observing BGP UPDATE Messages
 #### 3.3 Task 1.c: Experimenting with Large Communities
 #### 3.4 Task 1.d: Configuring AS-180
