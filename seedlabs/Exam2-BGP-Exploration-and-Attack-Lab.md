@@ -3,6 +3,14 @@
 #### Ozgur Ural
 #### Student ID: 2564455
 
+### 2 The Lab Setup and the SEED Internet Emulator
+
+First of all, I downloaded the emulator files. Then run the docker with the following commands.
+```sh
+$ docker-compose build
+$ docker-compose up
+```
+
 
 ### 3 Task 1: Stub Autonomous System
 #### 3.1 Task 1.a: Understanding AS-155’s BGP Configuration
