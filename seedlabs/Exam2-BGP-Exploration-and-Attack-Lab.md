@@ -70,6 +70,7 @@ The experiments in this section need to configure a series of router configurati
 ##### step 1 Connect AS-180 and AS-171
 Add the following to the configuration of AS-180 and AS-171 respectively:
 
+![1](./exam2/1.png)
 
 
 
