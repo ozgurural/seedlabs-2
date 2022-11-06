@@ -11,7 +11,6 @@ $ docker-compose build
 $ docker-compose up
 ```
 
-
 ### 3 Task 1: Stub Autonomous System
 #### 3.1 Task 1.a: Understanding AS-155’s BGP Configuration
 
@@ -19,6 +18,16 @@ Task 1.a.1:  Find the peer autonomous system of AS-155, find the BGP route of 10
 
 ![image](https://user-images.githubusercontent.com/4716254/200149098-ba95c405-c104-4bd7-a22c-dd4a2d569ab3.png)
 
+It is known from the routing configuration that AS-150 is interconnected with 3 autonomous systems, of which p_as156 has a peer relationship with it:
+
+![image](https://user-images.githubusercontent.com/4716254/200149125-4ae9cde5-716b-4730-9d89-98c65d072d89.png)
+
+
+Task 1.a.2: AS-155 is interconnected with multiple ASs at the same time, one of which will not affect the AS-155's access to the Internet.
+
+Here we choose to ping the host 10.156.0.72 from 10.155.0.72, and disconnect the links of the BGP routes one by one. If and only when all the links are disconnected, the ping command shows that it is unreachable.
+
+![image](https://user-images.githubusercontent.com/4716254/200149151-9eee0fc3-2220-47fa-af75-121328c21040.png)
 
 
 #### 3.2 Task 1.b: Observing BGP UPDATE Messages
