@@ -72,7 +72,18 @@ Add the following to the configuration of AS-180 and AS-171 respectively:
 
 ![1](./exam2/1.png)
 
+![image](https://user-images.githubusercontent.com/4716254/200151339-66a91046-8363-4cb6-843b-dfd03b422d52.png)
 
+##### step 2 Connect AS-180 with AS-2 and AS-3
+
+AS - 180 :  
+![2](./exam2/2.png)
+
+AS - 2 : 
+![3](./exam2/3.png)
+
+At this point, the host connected to AS-2 can be pinged:
+![image](https://user-images.githubusercontent.com/4716254/200151497-52641730-3c4c-4e51-9e8a-14f6cd692aa7.png)
 
 
 ### 4 Task 2: Transit Autonomous System
