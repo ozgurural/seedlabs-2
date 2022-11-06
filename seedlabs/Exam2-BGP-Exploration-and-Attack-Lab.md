@@ -31,6 +31,10 @@ Here we choose to ping the host 10.156.0.72 from 10.155.0.72, and disconnect the
 
 
 #### 3.2 Task 1.b: Observing BGP UPDATE Messages
+
+Run the following command on the router to store the packets received by the router into a pcap file and transfer them to the virtual machine:
+
+
 #### 3.3 Task 1.c: Experimenting with Large Communities
 #### 3.4 Task 1.d: Configuring AS-180
 
