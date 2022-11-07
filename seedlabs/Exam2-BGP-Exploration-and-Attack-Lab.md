@@ -70,6 +70,7 @@ Add the following to the configuration of AS-180 and AS-171 respectively:
 
 ![1](./exam2/1.png)
 
+![17](./exam2/17.png)
 ![image](https://user-images.githubusercontent.com/4716254/200151339-66a91046-8363-4cb6-843b-dfd03b422d52.png)
 
 ##### step 2 Connect AS-180 with AS-2 and AS-3
@@ -84,6 +85,7 @@ AS - 2 :
 
 At this point, the host connected to AS-2 can be pinged:
 
+![18](./exam2/18.png)
 ![image](https://user-images.githubusercontent.com/4716254/200151497-52641730-3c4c-4e51-9e8a-14f6cd692aa7.png)
 
 ### 4 Task 2: Transit Autonomous System
@@ -91,12 +93,14 @@ At this point, the host connected to AS-2 can be pinged:
 
 Ping 10.164.0.71 on any host of AS-162 to observe the traffic path. At this time, the ibgp3 of the 3/r103 router is turned off, and the icmp path is interrupted. At this time, the routing information forwarded by 10.103.0.3 will be lost in the routing table of the 162/router0 router.
 
+![19](./exam2/19.png)
 ![image](https://user-images.githubusercontent.com/4716254/200151589-ec8c6dd1-17a5-483c-a013-a1d17c862769.png)
 
 #### 4.2 Task 2.b: Experimenting with IGP
 
 Use the command disable ospf1 to turn off the opsf protocol of the 3/r103 router, and the icmp path is cut off.
 
+![20](./exam2/20.png)
 ![image](https://user-images.githubusercontent.com/4716254/200151613-17667106-2ec8-4651-8c49-4eebc6b2784e.png)
 
 
@@ -108,6 +112,7 @@ Modify the configurations of AS-5/r103 and AS-3/r103 so that they can communicat
 
 First check the routing table leading to 10.161.0.0/24 in the BGP router of AS-150:
 
+![21](./exam2/21.png)
 ![image](https://user-images.githubusercontent.com/4716254/200151680-8bfde7a5-c7df-4e91-8ffe-13892e311b27.png)
 
 It can be seen that there are two routing paths to 10.161.0.0/24. They pass through AS-2 and AS-3 respectively. When forwarding routes, the first path will be selected for forwarding. This is because the priorities of the two paths are the same. , so the forwarding with the shorter AS path is preferred
