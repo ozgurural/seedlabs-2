@@ -36,7 +36,7 @@ Run the following command on the router to store the packets received by the rou
 tcpdump -i any -w /tmp/pgp.pcap "tcp port 179"
 ```
 
-Cut off a router connected to it (go offline or cut off all bgp connections), use wireshar to read the pcap file, find the UPDATE MESSAGE of BGP, and see the message that the route exits:
+Cut off a router connected to it, use wireshark to read the pcap file, find the UPDATE MESSAGE of BGP, and see the message that the route exits:
 
 ![14](./exam2/14.png)
 
@@ -46,7 +46,7 @@ Reconnecting can also capture routing update packets:
 
 #### 3.3 Task 1.c: Experimenting with Large Communities
 
-First cut off the connection between AS-4 and AS-156, and then run the ping command on 10.156.0.71. It is found that 10.155.0.71 can be pinged, but 10.161.0.71 cannot be pinged. Although AS-156 is connected to the Internet through AS-155, due to the relationship between the two peers, AS-155 will not forward the data of AS-156 (whether it is forwarded depends on the relationship between the two).
+First cut off the connection between AS-4 and AS-156, and then run the ping command on 10.156.0.71. It is found that 10.155.0.71 can be pinged, but 10.161.0.71 cannot be pinged. Although AS-156 is connected to the Internet through AS-155, due to the relationship between the two peers, AS-155 will not forward the data of AS-156.
 
 ![16](./exam2/16.png)
 
@@ -123,11 +123,11 @@ ip root show 100.152.0.0/24
 Since the local-preference is preferred when routing, you can adjust the configuration settings.
 
 ### 6 Task 4: IP Anycast
-Anycast (anycast), similar to "throwing hydrangea", a member sends a message to a group of members, and the DNS server adopts this technology.
+A member sends a message to a group of members, and the DNS server adopts this technology.
         
 Ping 10.190.0.100 on 10.156.0.71 and 10.160.0.72, and find that the icmp packets of the two hosts have been sent to different destination hosts.
 
-The implementation mechanism of anycast is that the router does not care about the specific location of the destination host (even if there are multiple), but only cares about the path to the host. The two 10.190.0.100s respectively inform AS-3 and AS-4 of their own locations, and AS-3 and AS-4 spread out. After other routers receive the routing information, they will select the optimal path for forwarding according to the routing algorithm. , there is only one forwarding path, so the message can only reach a certain host in 10.190.0.100.
+The implementation mechanism of anycast is that the router does not care about the specific location of the destination host, but only cares about the path to the host. The two 10.190.0.100s respectively inform AS-3 and AS-4 of their own locations, and AS-3 and AS-4 spread out. After other routers receive the routing information, they will select the optimal path for forwarding according to the routing algorithm. There is only one forwarding path, so the message can only reach a certain host in 10.190.0.100.
 
 ### 7 Task 5: BGP Prefix Attack
 
@@ -135,7 +135,7 @@ Principle: longest route matching principle
 
 #### 7.1 Task 5.a. Launching the Prefix Hijacking Attack from AS-161
 
-Modify the configuration information of AS-161 so that all traffic to AS-154 is transferred to AS-161. The subnet in the configuration needs to cover the entire 10.154.0.0/24 :
+Modify the configuration information of AS-161 so that all traffic to AS-154 is transferred to AS-161. The subnet in the configuration needs to cover the entire 10.154.0.0/24:
 
 ![4](./exam2/4.png)
 
