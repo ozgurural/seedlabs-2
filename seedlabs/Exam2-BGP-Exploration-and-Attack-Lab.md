@@ -127,8 +127,6 @@ Anycast (anycast), similar to "throwing hydrangea", a member sends a message to 
         
 Ping 10.190.0.100 on 10.156.0.71 and 10.160.0.72, and find that the icmp packets of the two hosts have been sent to different destination hosts.
 
-![image](https://user-images.githubusercontent.com/4716254/200151755-bd9f8eb3-f44e-4dff-933d-86addc7a7c6f.png)
-
 The implementation mechanism of anycast is that the router does not care about the specific location of the destination host (even if there are multiple), but only cares about the path to the host. The two 10.190.0.100s respectively inform AS-3 and AS-4 of their own locations, and AS-3 and AS-4 spread out. After other routers receive the routing information, they will select the optimal path for forwarding according to the routing algorithm. , there is only one forwarding path, so the message can only reach a certain host in 10.190.0.100.
 
 ### 7 Task 5: BGP Prefix Attack
@@ -140,11 +138,6 @@ Principle: longest route matching principle
 Modify the configuration information of AS-161 so that all traffic to AS-154 is transferred to AS-161. The subnet in the configuration needs to cover the entire 10.154.0.0/24 :
 
 ![4](./exam2/4.png)
-
-The effect is as follows:
-
-![image](https://user-images.githubusercontent.com/4716254/200151891-bc7fbfb4-3812-481f-a7cf-ab57eadf492b.png)
-
 
 #### 7.2 Task 5.b. Fighting Back from AS-154
 
