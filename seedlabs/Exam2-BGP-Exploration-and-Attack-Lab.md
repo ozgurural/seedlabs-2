@@ -145,8 +145,7 @@ Modify the AS-154 configuration so that it can grab its own traffic:
 
 ![5](./exam2/5.png)
 
-![image](https://user-images.githubusercontent.com/4716254/200151942-5601ea0f-b630-4891-a67d-bce1d2ade7c7.png)
-
+![22](./exam2/22.png)
 
 #### 7.3 Task 5.c. Fixing the Problem at AS-3
 
@@ -156,5 +155,4 @@ Since AS-3 is the only provider of AS-161, AS-3 can modify its own configuration
 
 The configuration of AS-154 has been rolled back here, and it can be found that the traffic is still sent to AS-154 correctly.
 
-![image](https://user-images.githubusercontent.com/4716254/200152083-a503c40a-4e72-4625-b20f-ba8da159ab34.png)
-
+![23](./exam2/23.png)
