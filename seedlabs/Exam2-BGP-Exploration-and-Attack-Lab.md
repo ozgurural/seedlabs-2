@@ -111,18 +111,16 @@ First check the routing table leading to 10.161.0.0/24 in the BGP router of AS-1
 
 It can be seen that there are two routing paths to 10.161.0.0/24. They pass through AS-2 and AS-3 respectively. When forwarding routes, the first path will be selected for forwarding. This is because the priorities of the two paths are the same. Forwarding with the shorter AS path is preferred.
 
-![image](https://user-images.githubusercontent.com/4716254/200151692-03cdc577-2e61-42dc-b4df-cc5b1f909098.png)
+```sh
+ip root show 100.161.0.0/24
+```
+Next, modify the routing configuration of AS-150 so that the traffic of AS-150 is forwarded through AS-3, and AS-2 is only used as a backup link. Without modifying the routing configuration,traffic destined for 10.152.0.0/24 will be forwarded by AS-2:
 
-![image](https://user-images.githubusercontent.com/4716254/200151696-03fefb59-ec75-4d26-b906-af7fa7003215.png)
-
-Next, modify the routing configuration of AS-150 so that the traffic of AS-150 is forwarded through AS-3, and AS-2 is only used as a backup link. Without modifying the routing configuration, traffic destined for 10.152.0.0/24 will be forwarded by AS-2:
-
-![image](https://user-images.githubusercontent.com/4716254/200151711-e465ca48-2885-483a-a228-95d9dbaa1d12.png)
+```sh
+ip root show 100.152.0.0/24
+```
 
 Since the local-preference is preferred when routing, you can adjust the configuration settings.
-
-![image](https://user-images.githubusercontent.com/4716254/200151738-029a194f-f08a-4ff2-9732-669cee6e6c4a.png)
-
 
 ### 6 Task 4: IP Anycast
 Anycast (anycast), similar to "throwing hydrangea", a member sends a message to a group of members, and the DNS server adopts this technology.
