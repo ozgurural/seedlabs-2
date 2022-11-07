@@ -109,7 +109,7 @@ First check the routing table leading to 10.161.0.0/24 in the BGP router of AS-1
 
 ![21](./exam2/21.png)
 
-It can be seen that there are two routing paths to 10.161.0.0/24. They pass through AS-2 and AS-3 respectively. When forwarding routes, the first path will be selected for forwarding. This is because the priorities of the two paths are the same. , so the forwarding with the shorter AS path is preferred
+It can be seen that there are two routing paths to 10.161.0.0/24. They pass through AS-2 and AS-3 respectively. When forwarding routes, the first path will be selected for forwarding. This is because the priorities of the two paths are the same. Forwarding with the shorter AS path is preferred.
 
 ![image](https://user-images.githubusercontent.com/4716254/200151692-03cdc577-2e61-42dc-b4df-cc5b1f909098.png)
 
