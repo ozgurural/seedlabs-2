@@ -93,10 +93,6 @@ I test the trace.py program out by having it attempt to go to a website. It does
 
 I next try a random IP address (1.2.3.4). After six hops, the program is no longer receiving a reply.
 
-
-
-
-
 #### 3.4 Task 1.4: Sniffing and-then Spoofing
 
 For this task I will be using two virtual machines on my LAN: Attacker (IP 10.0.2.15) and Server (IP 10.0.2.4):
@@ -115,9 +111,48 @@ I now run the sniffAndSpoof.py program on the Attacker machine and run the same 
 
 ##### Task 2.1A: Understanding How a Sniffer Works
 
+Create a print.c to print the source IP and destination IP address of the captured packet
+
+![image](https://user-images.githubusercontent.com/4716254/206075719-dff9dcc1-78db-478e-a3c4-6f3029917a37.png)
+
+Run print.c, try to ping baidu.com in another terminal and observe that the sent package appears in the running result:
+
+![image](https://user-images.githubusercontent.com/4716254/206075783-1f4b2238-38b0-4daf-92b6-f371109b25f8.png)
+
+In addition, please answer the following questions: 
+
+Question 1: Start pcap to listen to the network card. Then, compile BPF filter and set the filter. Set sniffing The processing function, and finally close the sniffing. 
+
+Question 2: Sniffing packets is a high-privilege operation, because it involves privacy and security-related issues. If ordinary users can also sniff data packets, then he can steal other people's privacy, even steal account passwords and so on. Run the program without root privileges. The first step of monitoring the network card fails when there is no permission.
+
+Question 3: Using the promiscuous mode can monitor the data packets of other machines in the same network segment, but not when it is turned off. As shown below, enable the promiscuous mode on the terminal through the sudo ifconfig enp0s3 promisc command line, and listen to the data packets of ping baidu.com from another machine (10.0.2.4) in this network segment, but it cannot be sniffed after it is turned off. 
+
+![image](https://user-images.githubusercontent.com/4716254/206076432-366b680a-135a-4cee-8ece-a9c5bdfaaa10.png)
+
+
 ##### Task 2.1B: Writing Filters
 
+Capture ICMP packets between two specific hosts. 
+The filters used are icmp and src host 10.0.2.15 and dst host 220.181.38.148. Only capture ICMP packets sent from 10.0.2.15 to 220.181.38.148. The results are as follows. It can be seen that all ICMP packets are sent from 10.0.2.15 to 220.181.38.148, and there are no other types of packets.
+
+![image](https://user-images.githubusercontent.com/4716254/206076887-58944899-1e4e-4a1e-b0b0-622db1dc4205.png)
+
+Capture TCP packets whose destination port number is in the range of 10 to 100.
+The filter used is tcp and dst portrange 10-100. The result is as follows: access baidu.com with a browser: the packet of 111 does not appear in the result.
+
+![image](https://user-images.githubusercontent.com/4716254/206076615-9fef4800-bae9-4ce1-8fe6-b299bc92a290.png)
+
+
 ##### Task 2.1C: Sniffing Passwords
+
+Use sniffing to capture the password in the telnet protocol, the code is as follows:
+
+![image](https://user-images.githubusercontent.com/4716254/206076701-1a5e66ee-0906-444b-ad53-a34d78f40e6a.png)
+
+Then use telnet 10.9.0.5, and enter the account password for remote login. The sniffed passwords are as follows:
+
+![image](https://user-images.githubusercontent.com/4716254/206076961-5c370a8b-ea62-4b27-b5c1-edc0e447cb5e.png)
+
 
 #### 4.2 Task 2.2: Spoofing
 
