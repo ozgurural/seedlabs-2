@@ -103,16 +103,19 @@ Question 2: Sniffing packets is a high-privilege operation, because it involves 
 
 Question 3: Using the promiscuous mode can monitor the data packets of other machines in the same network segment, but not when it is turned off. As shown below, enable the promiscuous mode on the terminal through the sudo ifconfig enp0s3 promisc command line, and listen to the data packets of ping a website from another machine (10.0.2.4) in this network segment, but it cannot be sniffed after it is turned off. 
 
-![image](https://user-images.githubusercontent.com/4716254/206076432-366b680a-135a-4cee-8ece-a9c5bdfaaa10.png)
+```sh
+sudo ifconfig enp0s3 promisc
+ping google.com
+```
+
+![image](https://user-images.githubusercontent.com/4716254/206267809-5bd759ca-eb4e-4757-9f6d-fd401ccb5897.png)
 
 ##### Task 2.1B: Writing Filters
 
 Capture ICMP packets between two specific hosts. 
 The filters used are icmp and src host 10.0.2.15 and dst host 220.181.38.148. Only capture ICMP packets sent from 10.0.2.15 to 220.181.38.148. The results are as follows. It can be seen that all ICMP packets are sent from 10.0.2.15 to 220.181.38.148, and there are no other types of packets.
 
-![image](https://user-images.githubusercontent.com/4716254/206076887-58944899-1e4e-4a1e-b0b0-622db1dc4205.png)
-
-![image](https://user-images.githubusercontent.com/4716254/206077308-9436978a-c6ec-4f4e-b30e-c0f0fb2da92f.png)
+![image](https://user-images.githubusercontent.com/4716254/206267525-04ad1a74-6024-43af-805a-2f478d0c141d.png)
 
 Capture TCP packets whose destination port number is in the range of 10 to 100. The filter used is tcp and dst portrange 10-100. The result is as follows: access the website with a browser: the packet of 111 does not appear in the result.
 
@@ -140,7 +143,7 @@ The input password is dees, and the user name input by telnet is the same.
 
 Create a task22a.c to forge UDP packets, see the code in the compressed package.  Use gcc -o task22a task22a.c spoof.c -lpcap to compile, then sudo ./task22a to run the program, use wireshark to view the background, you can see forged UDP packets.
 
-![image](https://user-images.githubusercontent.com/4716254/206078027-b49f67d7-c0d7-4122-a11f-db51943ae950.png)
+![image](https://user-images.githubusercontent.com/4716254/206268227-e6845b45-8f06-4d71-9b71-29689807b701.png)
 
 ##### Task 2.2B: Spoof an ICMP Echo Request
 
@@ -150,7 +153,7 @@ Forged ICMP Echo request, forged code task22b.c, where the source IP 10.9.0.6 is
 
 Use gcc -o task22b task22b.c spoof.c checksum.c -lpcap to compile, run sudo ./task22b, check the wireshark in the background, as follows, you can see that the source IP we sent is 10.9.0.6, and the destination IP is 8.8. 8.8 ICMP packets, and there are replies:
 
-![image](https://user-images.githubusercontent.com/4716254/206078222-16ea3e82-54a2-484d-bad2-6f5589f19cf1.png)
+![image](https://user-images.githubusercontent.com/4716254/206268435-454de613-e9bc-4429-b32b-b6f5beece751.png)
 
 Question 4: Change the length set in the code to the following, run it to know that it is 28B, modify the length to 10B, wireshark did not capture the packet, indicating that it was not sent.
 
@@ -164,7 +167,10 @@ Question 5: You do not need to calculate the checksum for the IP header, but you
 
 Question 6: Because being able to read and send packets arbitrarily means a great security risk, so root privilege is required . The results of running with normal permissions are as follows:
 
-![image](https://user-images.githubusercontent.com/4716254/206078467-34767136-a99f-43dc-835f-74f853834363.png)
+```sh
+./task22b
+sock: -1
+```
 
 #### 4.3 Task 2.3: Sniff and then Spoof
 
@@ -174,6 +180,14 @@ Create a task23.c, part of the code is as follows:
 
 Use gcc -o task23 task23.c checksum.c spoof.c -lpcap to compile the program, sudo ./task23 to run. Close the network, use another machine to ping 1.1.1.1, this machine runs the above program, the result is as follows:
 
-![image](https://user-images.githubusercontent.com/4716254/206078674-1bbdc2a0-2ffe-430b-9c9e-c10161ffac93.png)
+```sh
+ping 1.1.1.1
+```
 
-![image](https://user-images.githubusercontent.com/4716254/206078686-8e007613-6e3e-434d-bb00-8f2ce8dcc109.png)
+![image](https://user-images.githubusercontent.com/4716254/206269315-12501a9a-72bc-44fd-bb4c-0dc70ae2a4b1.png)
+
+```sh
+sudo ./task23
+```
+
+![image](https://user-images.githubusercontent.com/4716254/206269420-6f7f9dc6-740c-4734-8444-c1f183c27d46.png)
