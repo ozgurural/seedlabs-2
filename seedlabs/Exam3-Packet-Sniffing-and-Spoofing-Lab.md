@@ -95,7 +95,7 @@ Create a program to print the source IP and destination IP address of the captur
 
 ![image](https://user-images.githubusercontent.com/4716254/206075719-dff9dcc1-78db-478e-a3c4-6f3029917a37.png)
 
-Try to ping website in another terminal and observe that the sent package appears in the running result.
+Pinged website in another terminal and observed that the sent package appears in the running result.
 
 Question 1: Start pcap to listen to the network card. Then, compile BPF filter and set the filter. Set sniffing The processing function, and finally close the sniffing. 
 
