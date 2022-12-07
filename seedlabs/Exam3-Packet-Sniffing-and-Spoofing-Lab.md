@@ -26,7 +26,6 @@ chmod a+x sniffer.py
 sudo ./sniffer.py
 ```
 
-
 When I first run it, nothing happens. This is because there are no ICMP packets being sent on my network. Opening up another terminal and pinging a website will cause ICMP packets to be sent.Then I attempt the same process again but without root privilege:
 
 As soon as I run sniffer.py I get a permission error.
@@ -39,59 +38,40 @@ I edit the sniffer.py program to use ‘tcp and src host 10.0.2.4 and dst port 2
 
 ![image](https://user-images.githubusercontent.com/4716254/206061419-78ca169e-7196-435d-b2d1-66ddf50062e6.png)
 
-I run this with root privilege and attempt to ping to see what happens:
- No packets are captured.
-
-I try the same thing on the other virtual machine with IP address 10.0.2.4:
-
-Packets were captured. This means that the filter worked and only TCP packets from 10.0.2.4 being sent to port 23 are captured; the rest were ignored.
+I run this with root privilege and attempt to ping to see what happens, no packets are captured. I try the same thing on the other virtual machine with IP address 10.0.2.4:Packets were captured. This means that the filter worked and only TCP packets from 10.0.2.4 being sent to port 23 are captured; the rest were ignored.
 
 The last filter I need to implement is one that will only capture packets coming from or going to a particular subnet. I will choose 128.115.0.0/16 as the subnet. I edit the sniffer.py program as follows:
 
 ![image](https://user-images.githubusercontent.com/4716254/206061656-d13173f4-8dee-4d1b-b7ae-b7b7df65e96d.png)
 
-Running sniffer.py with root privilege, I try sending a TCP packet with the nc command to an IP that isn’t part of the subnet, nothing happens.
-
-I try again, but this time I send it to an IP address that is part of the subnet. Packets are being captured. The filter is working.
-
+Running sniffer.py with root privilege, I try sending a TCP packet with the nc command to an IP that isn’t part of the subnet, nothing happens. I try again, but this time I send it to an IP address that is part of the subnet. Packets are being captured. The filter is working.
 
 #### 3.2 Task 1.2: Spoofing ICMP Packets
 
 In this task, I need to make a Python program that uses Scapy to create a spoofed ICMP echo request packet with an arbitrary source IP address and send it to another virtual machine on my network.
 
-I will make the arbitrary source IP address 1.2.3.4 and the destination address 10.0.2.4 (this is the IP address of my Server VM). Here is the program:
+I will make the arbitrary source IP address 1.2.3.4 and the destination address 10.0.2.4. Here is the program:
 
 ![image](https://user-images.githubusercontent.com/4716254/206061809-576a217e-da81-4dad-ae00-5c733e1597f3.png)
 
-The program first creates an IP object and sets the destination and source IP addresses. Then it creates an ICMP object. The default type for ICMP objects in Scapy is echo request, so that doesn’t need to be explicitly set.
+The program first creates an IP object and sets the destination and source IP addresses. Then it creates an ICMP object. The default type for ICMP objects in Scapy is echo request, so that doesn’t need to be explicitly set. Next, the program creates the packet by using ip/icmp. Finally, it sends the packet out.
 
-Next, the program creates the packet by using ip/icmp (this sets the ICMP object as the IP object’s payload). Finally, it sends the packet out.
-
-I use the tcpdump command to listen for ICMP packets on the network. It will write information about any packets of that type to a file called ‘packets’ in the ‘tmp’ directory.
-
-In a second terminal window, I run the spoofing.py program with root privilege. I ctr+c out of the tcpdump listener and use Wireshark to open the /tmp/packets file:
+I use the tcpdump command to listen for ICMP packets on the network. It will write information about any packets of that type to a file called ‘packets’ in the ‘tmp’ directory. In a second terminal window, I run the spoofing.py program with root privilege. I copy out of the tcpdump listener and use Wireshark to open the /tmp/packets file:
 
 ![image](https://user-images.githubusercontent.com/4716254/206061935-87ef9d20-20ac-46a5-a107-52cb75caba7f.png)
 
-The first ICMP packet that tcpdump captured was the echo request that the spoofing.py program sent. The second ICMP packet captured was the reply sent back from 10.0.2.4 (the Server VM).
-
-The source for the request is 1.2.3.4 and the destination for the reply is also 1.2.3.4. This means that the spoofing.py program successfully spoofed a ICMP packet and assigned it an arbitrary source IP address.
-
-
+The first ICMP packet that tcpdump captured was the echo request that the spoofing.py program sent. The second ICMP packet captured was the reply sent back from 10.0.2.4. The source for the request is 1.2.3.4 and the destination for the reply is also 1.2.3.4. This means that the spoofing.py program successfully spoofed a ICMP packet and assigned it an arbitrary source IP address.
 
 #### 3.3 Task 1.3: Traceroute
 
-The goal of this task is to create a version of traceroute using Scapy. The program needs to repeatedly send out packets (I will use ICMP packets) with Time-To-Live (TTL) value starting at 1.
-
-I will make the maximum number of hops 255. This means that if the packet fails to reach its destination by the time its TTL has been incremented all the way to 255, the program will stop.
+The goal of this task is to create a version of traceroute using Scapy. The program needs to repeatedly send out packets with Time-To-Live(TTL) value starting at 1.
+I make the maximum number of hops 255. This means that if the packet fails to reach its destination by the time its TTL has been incremented all the way to 255, the program will stop.
 
 I used the following program:
 
 ![image](https://user-images.githubusercontent.com/4716254/206062158-8c57fa67-053b-4c81-876a-05174ec0bae7.png)
 
-I test the trace.py program out by having it attempt to go to a website. It does so successfully after 13 hops.
-
-I next try a random IP address (1.2.3.4). After six hops, the program is no longer receiving a reply.
+I test the trace.py program out by having it attempt to go to a website. It does so successfully after 13 hops. I next try a random IP address (1.2.3.4). After six hops, the program is no longer receiving a reply.
 
 #### 3.4 Task 1.4: Sniffing and-then Spoofing
 
@@ -103,7 +83,7 @@ Here is the python program:
 
 I try to ping an IP address that I know isn’t alive (1.2.3.4) on the Server machine to see what happens when the sniffAndSpoof.py program isn’t running, we get no replies.
 
-I now run the sniffAndSpoof.py program on the Attacker machine and run the same ping command on the Server machine. I begin getting replies on the Server machine. It says the replies are from IP 1.2.3.4, but I know that isn’t true because that is a dead IP address as shown above. The replies are actually coming from the sniffAndSpoof.py program that is running on the Attacker machine. The program is working.
+I now run the sniffAndSpoof.py program on the attacker machine and run the same ping command on the server machine. I begin getting replies on the server machine. It says the replies are from IP 1.2.3.4, but I know that isn’t true because that is a dead IP address as shown above. The replies are actually coming from the sniffAndSpoof.py program that is running on the Attacker machine. The program is working.
 
 ### 4 Lab Task Set 2: Writing Programs to Sniff and Spoof Packets
 
@@ -125,10 +105,9 @@ Question 1: Start pcap to listen to the network card. Then, compile BPF filter a
 
 Question 2: Sniffing packets is a high-privilege operation, because it involves privacy and security-related issues. If ordinary users can also sniff data packets, then he can steal other people's privacy, even steal account passwords and so on. Run the program without root privileges. The first step of monitoring the network card fails when there is no permission.
 
-Question 3: Using the promiscuous mode can monitor the data packets of other machines in the same network segment, but not when it is turned off. As shown below, enable the promiscuous mode on the terminal through the sudo ifconfig enp0s3 promisc command line, and listen to the data packets of ping baidu.com from another machine (10.0.2.4) in this network segment, but it cannot be sniffed after it is turned off. 
+Question 3: Using the promiscuous mode can monitor the data packets of other machines in the same network segment, but not when it is turned off. As shown below, enable the promiscuous mode on the terminal through the sudo ifconfig enp0s3 promisc command line, and listen to the data packets of ping a website from another machine (10.0.2.4) in this network segment, but it cannot be sniffed after it is turned off. 
 
 ![image](https://user-images.githubusercontent.com/4716254/206076432-366b680a-135a-4cee-8ece-a9c5bdfaaa10.png)
-
 
 ##### Task 2.1B: Writing Filters
 
@@ -139,12 +118,9 @@ The filters used are icmp and src host 10.0.2.15 and dst host 220.181.38.148. On
 
 ![image](https://user-images.githubusercontent.com/4716254/206077308-9436978a-c6ec-4f4e-b30e-c0f0fb2da92f.png)
 
-
-Capture TCP packets whose destination port number is in the range of 10 to 100.
-The filter used is tcp and dst portrange 10-100. The result is as follows: access baidu.com with a browser: the packet of 111 does not appear in the result.
+Capture TCP packets whose destination port number is in the range of 10 to 100. The filter used is tcp and dst portrange 10-100. The result is as follows: access the website with a browser: the packet of 111 does not appear in the result.
 
 ![image](https://user-images.githubusercontent.com/4716254/206076615-9fef4800-bae9-4ce1-8fe6-b299bc92a290.png)
-
 
 ##### Task 2.1C: Sniffing Passwords
 
@@ -166,19 +142,16 @@ The input password is dees, and the user name input by telnet is the same.
 
 ##### Task 2.2A: Write a spoofing program
 
-Create a task22a.c to forge UDP packets, see the code in the compressed package. 
-Use gcc -o task22a task22a.c spoof.c -lpcap to compile, then sudo ./task22a to run the program, use wireshark to view the background, you can see forged UDP packets.
+Create a task22a.c to forge UDP packets, see the code in the compressed package.  Use gcc -o task22a task22a.c spoof.c -lpcap to compile, then sudo ./task22a to run the program, use wireshark to view the background, you can see forged UDP packets.
 
 ![image](https://user-images.githubusercontent.com/4716254/206078027-b49f67d7-c0d7-4122-a11f-db51943ae950.png)
 
 
 ##### Task 2.2B: Spoof an ICMP Echo Request
 
-
-Forged ICMP Echo request, forged code task22b.c (see compressed package for details), where the source IP 10.9.0.6 is the IP of another container in the LAN
+Forged ICMP Echo request, forged code task22b.c, where the source IP 10.9.0.6 is the IP of another container in the LAN
 
 ![image](https://user-images.githubusercontent.com/4716254/206078200-4aab7a49-6681-4d27-94ac-7e47db9b300d.png)
-
 
 Use gcc -o task22b task22b.c spoof.c checksum.c -lpcap to compile, run sudo ./task22b, check the wireshark in the background, as follows, you can see that the source IP we sent is 10.9.0.6, and the destination IP is 8.8. 8.8 ICMP packets, and there are replies:
 
@@ -191,7 +164,6 @@ Question 4: Change the length set in the code to the following, run it to know t
 Modify it to 1000B, the result is as follows, you can see that it was sent out normally, and the response was received. Indicates that the length can be increased but cannot be decreased.
 
 ![image](https://user-images.githubusercontent.com/4716254/206078315-e1c6cb6c-d2ce-4476-8cd3-f923068a1872.png)
-
 
 Question 5: You do not need to calculate the checksum for the IP header, but you need to calculate the checksum for the ICMP header. 
 
@@ -210,5 +182,3 @@ Use gcc -o task23 task23.c checksum.c spoof.c -lpcap to compile the program, sud
 ![image](https://user-images.githubusercontent.com/4716254/206078674-1bbdc2a0-2ffe-430b-9c9e-c10161ffac93.png)
 
 ![image](https://user-images.githubusercontent.com/4716254/206078686-8e007613-6e3e-434d-bb00-8f2ce8dcc109.png)
-
-
