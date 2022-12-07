@@ -91,15 +91,11 @@ I now run the sniffAndSpoof.py program on the attacker machine and run the same 
 
 ##### Task 2.1A: Understanding How a Sniffer Works
 
-Create a print.c to print the source IP and destination IP address of the captured packet
+Create a program to print the source IP and destination IP address of the captured packet
 
 ![image](https://user-images.githubusercontent.com/4716254/206075719-dff9dcc1-78db-478e-a3c4-6f3029917a37.png)
 
-Run print.c, try to ping baidu.com in another terminal and observe that the sent package appears in the running result:
-
-![image](https://user-images.githubusercontent.com/4716254/206075783-1f4b2238-38b0-4daf-92b6-f371109b25f8.png)
-
-In addition, please answer the following questions: 
+Try to ping website in another terminal and observe that the sent package appears in the running result.
 
 Question 1: Start pcap to listen to the network card. Then, compile BPF filter and set the filter. Set sniffing The processing function, and finally close the sniffing. 
 
@@ -145,7 +141,6 @@ The input password is dees, and the user name input by telnet is the same.
 Create a task22a.c to forge UDP packets, see the code in the compressed package.  Use gcc -o task22a task22a.c spoof.c -lpcap to compile, then sudo ./task22a to run the program, use wireshark to view the background, you can see forged UDP packets.
 
 ![image](https://user-images.githubusercontent.com/4716254/206078027-b49f67d7-c0d7-4122-a11f-db51943ae950.png)
-
 
 ##### Task 2.2B: Spoof an ICMP Echo Request
 
