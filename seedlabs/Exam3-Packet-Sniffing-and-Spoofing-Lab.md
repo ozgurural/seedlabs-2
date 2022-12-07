@@ -137,6 +137,9 @@ The filters used are icmp and src host 10.0.2.15 and dst host 220.181.38.148. On
 
 ![image](https://user-images.githubusercontent.com/4716254/206076887-58944899-1e4e-4a1e-b0b0-622db1dc4205.png)
 
+![image](https://user-images.githubusercontent.com/4716254/206077308-9436978a-c6ec-4f4e-b30e-c0f0fb2da92f.png)
+
+
 Capture TCP packets whose destination port number is in the range of 10 to 100.
 The filter used is tcp and dst portrange 10-100. The result is as follows: access baidu.com with a browser: the packet of 111 does not appear in the result.
 
@@ -152,12 +155,60 @@ Use sniffing to capture the password in the telnet protocol, the code is as foll
 Then use telnet 10.9.0.5, and enter the account password for remote login. The sniffed passwords are as follows:
 
 ![image](https://user-images.githubusercontent.com/4716254/206076961-5c370a8b-ea62-4b27-b5c1-edc0e447cb5e.png)
+![image](https://user-images.githubusercontent.com/4716254/206077819-00158e60-98d6-487c-a617-2457e6d5587f.png)
+![image](https://user-images.githubusercontent.com/4716254/206077840-5d79a4f6-d2f8-488e-9fa7-1c2e7fdc2e32.png)
+![image](https://user-images.githubusercontent.com/4716254/206077855-7d193010-803b-4f9d-8b04-b6693fbcec5e.png)
+![image](https://user-images.githubusercontent.com/4716254/206077867-fc2e51d2-3fd3-473c-917d-59129460dc98.png)
 
+The input password is dees, and the user name input by telnet is the same.
 
 #### 4.2 Task 2.2: Spoofing
 
 ##### Task 2.2A: Write a spoofing program
 
+Create a task22a.c to forge UDP packets, see the code in the compressed package. 
+Use gcc -o task22a task22a.c spoof.c -lpcap to compile, then sudo ./task22a to run the program, use wireshark to view the background, you can see forged UDP packets.
+
+![image](https://user-images.githubusercontent.com/4716254/206078027-b49f67d7-c0d7-4122-a11f-db51943ae950.png)
+
+
 ##### Task 2.2B: Spoof an ICMP Echo Request
 
+
+Forged ICMP Echo request, forged code task22b.c (see compressed package for details), where the source IP 10.9.0.6 is the IP of another container in the LAN
+
+![image](https://user-images.githubusercontent.com/4716254/206078200-4aab7a49-6681-4d27-94ac-7e47db9b300d.png)
+
+
+Use gcc -o task22b task22b.c spoof.c checksum.c -lpcap to compile, run sudo ./task22b, check the wireshark in the background, as follows, you can see that the source IP we sent is 10.9.0.6, and the destination IP is 8.8. 8.8 ICMP packets, and there are replies:
+
+![image](https://user-images.githubusercontent.com/4716254/206078222-16ea3e82-54a2-484d-bad2-6f5589f19cf1.png)
+
+Question 4: Change the length set in the code to the following, run it to know that it is 28B, modify the length to 10B, wireshark did not capture the packet, indicating that it was not sent.
+
+![image](https://user-images.githubusercontent.com/4716254/206078277-c1f19672-38a0-4eeb-a092-f73399d44287.png)
+
+Modify it to 1000B, the result is as follows, you can see that it was sent out normally, and the response was received. Indicates that the length can be increased but cannot be decreased.
+
+![image](https://user-images.githubusercontent.com/4716254/206078315-e1c6cb6c-d2ce-4476-8cd3-f923068a1872.png)
+
+
+Question 5: You do not need to calculate the checksum for the IP header, but you need to calculate the checksum for the ICMP header. 
+
+Question 6: Because being able to read and send packets arbitrarily means a great security risk, so root privilege is required . The results of running with normal permissions are as follows:
+
+![image](https://user-images.githubusercontent.com/4716254/206078467-34767136-a99f-43dc-835f-74f853834363.png)
+
 #### 4.3 Task 2.3: Sniff and then Spoof
+
+Create a task23.c, part of the code is as follows:
+
+![image](https://user-images.githubusercontent.com/4716254/206078654-8544d78b-8c0a-4b57-99bd-ec15816a8537.png)
+
+Use gcc -o task23 task23.c checksum.c spoof.c -lpcap to compile the program, sudo ./task23 to run. Close the network, use another machine to ping 1.1.1.1, this machine runs the above program, the result is as follows:
+
+![image](https://user-images.githubusercontent.com/4716254/206078674-1bbdc2a0-2ffe-430b-9c9e-c10161ffac93.png)
+
+![image](https://user-images.githubusercontent.com/4716254/206078686-8e007613-6e3e-434d-bb00-8f2ce8dcc109.png)
+
+
